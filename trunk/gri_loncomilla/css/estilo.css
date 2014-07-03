@@ -3,6 +3,67 @@ body{
     padding: 0;
     font: Verdana;
     text-align: center;
-    background: #020066;
-    
+}
+#logo1{
+    /*    display:block;*/
+    width:600px;
+    height: 180px;
+    text-indent:-9999em;
+    background:url("images/logo180.png") 0 0 no-repeat;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    z-index: -1;
+}
+
+#logo2{
+    /*    display:block;*/
+    width:242px;
+    height: 200px;
+    text-indent:-9999em;
+    background:url("images/logo200.png") 0 0 no-repeat;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    z-index: -1;
+}
+
+#titulo{
+    width:570px;
+    height: 85px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    background:url("images/titulo1.png") 0 0 no-repeat;
+    /*text-align: center;*/
+}
+
+#login{
+    display: none;
+    /*background: #020066;*/
+    /*    margin-top: 2%; */
+    margin-left: 30%;
+    margin-right: 30%;
+    padding:40px 0;
+    border: 5px solid #55FF00;
+    border-radius: 10px;
+}
+
+#login button{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid #55FF00;
+    color: #55FF00;
+    background-color: #020066;
+
+} 
+#login input{
+    font-size: 20px;
+    text-align: center;
+}
+
+#reservas{
+        padding-left: 30px;
+
 }
