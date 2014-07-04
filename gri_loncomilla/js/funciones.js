@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#cerrar").button().click(function() {
         cerrar_sesion();
     });
-verificarLogin();  
+    verificarLogin();
 
 });
 function verificarLogin() {
@@ -11,28 +11,35 @@ function verificarLogin() {
             {},
             function(datos) {
                 if (datos.valor == 1) {
-                    
                     $("#cerrar_session").show();
-                    $("#login").hide('fast');//esconder
-                    if (datos.nivel == 1) {//administrador
+                    $("#login").hide('fast');
+                    if (datos.nivel == 0) {//administrador
                         $.post(
                                 base_url + "welcome/tabla_reserva", {}, function(ruta) {
                             $("#contenido").html(ruta);
                         }
-                        );                        
-                    } else {//trabajador
-                        $.post(
-                                base_url + "welcome/otros", {}, function(ruta) {
-                            $("#contenido").html(ruta);
+                        );
+                    } else {//call center
+                        if (datos.nivel == 1) {
+                            $.post(
+                                    base_url + "welcome/vendedor", {}, function(ruta) {
+                                $("#contenido").html(ruta);
+                            }
+                            );
+                        } else {//vendedor
+                            $.post(
+                                    base_url + "welcome/jefe_tecnico", {}, function(ruta) {
+                                $("#contenido").html(ruta);
+                            }
+                            );
                         }
-                        );                        
                     }
                 } else {//sin login
                     $("#cerrar_session").hide();
                     $.post(
                             base_url + "welcome/cargar_login", {}, function(ruta) {
-                        $("#contenido").html(ruta);                       
-                        $("#login").show();                    
+                        $("#contenido").html(ruta);
+                        $("#login").show();
                     }
                     );
                 }
@@ -59,22 +66,28 @@ function conectar() {
                 base_url + "welcome/conectar",
                 {login: login, password: password},
         function(datos) {
-            if (datos.valor == 1) {                
+            if (datos.valor == 1) {
                 $("#cerrar_session").show('slow');
-                if (datos.nivel == 1) {
-                    $("#login").hide('fast');
+                if (datos.nivel == 0) {//administrador
                     $.post(
                             base_url + "welcome/tabla_reserva", {}, function(ruta) {
                         $("#contenido").html(ruta);
                     }
-                    );                    
-                } else {
-                    $("#login").hide('fast');
-                    $.post(
-                            base_url + "welcome/reportes", {}, function(ruta) {
-                        $("#contenido").html(ruta);
-                    }
                     );
+                } else {//vendedor
+                    if (datos.nivel == 1) {
+                        $.post(
+                                base_url + "welcome/vendedor", {}, function(ruta) {
+                            $("#contenido").html(ruta);
+                        }
+                        );
+                    } else {//jefe tecnico
+                        $.post(
+                                base_url + "welcome/jefe_tecnico", {}, function(ruta) {
+                            $("#contenido").html(ruta);
+                        }
+                        );
+                    }
                 }
             } else {
                 alert("Usuario no existe en la base de datos");
