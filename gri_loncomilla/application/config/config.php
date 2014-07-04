@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/gri_loncomilla/index.php';
-
+//$config['base_url']	= 'http://localhost/gri_loncomilla/index.php';
+$config['base_url'] = 'http://localhost/trunk/gri_loncomilla/index.php';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -247,7 +247,7 @@ $config['encryption_key'] = '*';
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
-$config['sess_encrypt_cookie']	= FALSE;
+$config['sess_encrypt_cookie']	= true;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
