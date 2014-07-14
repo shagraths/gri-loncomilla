@@ -8,7 +8,7 @@
         <th>Empresa</th>
         <th>Estado</th>
         <th>Borrar</th>
-        <th>Cargar</th>
+        <th>Editar</th>
     </thead>
     <tbody>
         <? $i = 0; ?>
@@ -16,21 +16,21 @@
         <? $i++; ?>
             <? if ($i % 2 == 0): ?>
                 <tr align="center">
-                    <td><?= $filas->id; ?></td>
-                    <td><?= $filas->nombre; ?></td>
-                    <td><?= $filas->empresa; ?></td>
-                    <td><?= $filas->estado; ?></td>
-                    <td><button onclick="eliminar_tec(<?= $filas->id; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_tec(<?= $filas->id; ?>, '<?= $filas->nombre; ?>', '<?= $filas->empresa; ?>', '<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><?= $filas->id_t; ?></td>
+                    <td><?= $filas->nombre_t; ?></td>
+                    <td><?= $filas->empresa_t; ?></td>
+                    <td><?= $filas->estado_t; ?></td>
+                    <td><button onclick="borrar_tec(<?= $filas->id_t; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
+                    <td><button onclick="cargar_tec(<?= $filas->id_t; ?>, '<?= $filas->nombre_t; ?>', '<?= $filas->empresa_t; ?>', '<?= $filas->estado_t; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? else: ?>
                 <tr align="center" class="alt">
-                    <td><?= $filas->id; ?></td>
-                    <td><?= $filas->nombre; ?></td>
-                    <td><?= $filas->empresa; ?></td>
-                    <td><?= $filas->estado; ?></td>
-                    <td><button onclick="eliminar_tec(<?= $filas->id; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_tec(<?= $filas->id; ?>, '<?= $filas->nombre; ?>', '<?= $filas->empresa; ?>', '<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><?= $filas->id_t; ?></td>
+                    <td><?= $filas->nombre_t; ?></td>
+                    <td><?= $filas->empresa_t; ?></td>
+                    <td><?= $filas->estado_t; ?></td>
+                    <td><button onclick="borrar_tec(<?= $filas->id_t; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
+                    <td><button onclick="cargar_tec(<?= $filas->id_t; ?>, '<?= $filas->nombre_t; ?>', '<?= $filas->empresa_t; ?>', '<?= $filas->estado_t; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? endif; ?>
         <?php endforeach; ?>

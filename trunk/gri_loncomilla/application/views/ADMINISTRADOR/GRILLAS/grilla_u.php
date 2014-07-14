@@ -9,7 +9,7 @@
         <th>Tipo</th>
         <th>Estado</th>
         <th>Borrar</th>
-        <th>Cargar</th>
+        <th>Editar</th>
     </thead>
     <tbody>
         <? $i = 0; ?>
@@ -22,8 +22,8 @@
                     <td><?= $filas->apellido; ?></td>                    
                     <td><?= $filas->nivel; ?></td>
                     <td><?= $filas->estado_us; ?></td>
-                    <td><button onclick="eliminar_u(<?= $filas->rut; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_u(<?= $filas->rut; ?>, '<?= $filas->nombre; ?>', '<?= $filas->apellido; ?>', '<?= $filas->pass; ?>','<?= $filas->nivel; ?>','<?= $filas->estado_us; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><button onclick="borrar_u(<?= $filas->rut; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
+                    <td><button onclick="cargar_u(<?= $filas->rut; ?>, '<?= $filas->nombre; ?>', '<?= $filas->apellido; ?>','<?= $filas->nivel; ?>','<?= $filas->estado_us; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? else: ?>
                 <tr align="center" class="alt">
@@ -32,8 +32,8 @@
                     <td><?= $filas->apellido; ?></td>                    
                     <td><?= $filas->nivel; ?></td>
                     <td><?= $filas->estado_us; ?></td>
-                    <td><button onclick="eliminar_u(<?= $filas->rut; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_u(<?= $filas->rut; ?>, '<?= $filas->nombre; ?>', '<?= $filas->apellido; ?>', '<?= $filas->pass; ?>','<?= $filas->nivel; ?>','<?= $filas->estado_us; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><button onclick="borrar_u(<?= $filas->rut; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
+                    <td><button onclick="cargar_u(<?= $filas->rut; ?>, '<?= $filas->nombre; ?>', '<?= $filas->apellido; ?>', '<?= $filas->nivel; ?>','<?= $filas->estado_us; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? endif; ?>
         <?php endforeach; ?>
