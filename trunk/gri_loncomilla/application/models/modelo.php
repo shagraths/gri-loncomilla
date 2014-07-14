@@ -9,6 +9,125 @@ class modelo extends CI_Model {
         return $this->db->get("usuario");
     }
 
+    //todo reserva
+    function guardar_reserva($abonado, $orden, $nombre, $direccion, $fecha, $h_inicio, $h_fin, $obs, $material, $cb_s, $cb_tec, $estado_r) {
+        $this->db->select('*');
+        $this->db->where('n_orden', $orden);
+        $cantidad = $this->db->get('instalacion')->num_rows();
+        if ($cantidad == 0):
+            $data = array(
+                "n_abonado" => $abonado,
+                "n_orden" => $orden,
+                "nombre" => $nombre,
+                "direccion" => $direccion,
+                "motivo" => $cb_s,
+                "fecha" => $fecha,
+                "hora_inicio" => $h_inicio,
+                "hora_fin" => $h_fin,
+                "observacion" => $obs,
+                "mat_seriado" => $material,
+                "tecnico" => $cb_tec,
+                "estado" => $estado_r,
+                "encuesta_realizada" => "NO"
+            );
+            $this->db->insert("instalacion", $data);
+            return 0;
+        else:
+            return 1;
+        endif;
+    }
+
+    function grilla_reserva($fecha) {
+        $i = "07:00:00";
+        $f = "22:00:00";
+        $array = array('hora_inicio >=' => $i, 'hora_inicio <=' => $f);
+        $this->db->select('*');
+        $this->db->where('fecha', $fecha);
+        $this->db->where($array);
+        $this->db->group_by("hora_inicio");
+        $this->db->from('instalacion');
+        $this->db->join('servicio', 'servicio.id_s=instalacion.motivo');
+        $this->db->join('tecnico', 'tecnico.id_t=instalacion.tecnico');
+        return $this->db->get();
+    }
+
+    function grilla_reserva_e($fecha) {
+        $i = "07:00:00";
+        $f = "22:00:00";
+        $array = array('hora_inicio >=' => $i, 'hora_inicio <=' => $f);
+        $this->db->select('*');
+        $this->db->where('fecha', $fecha);
+        $this->db->where('encuesta_realizada', "NO");
+        $this->db->where($array);
+        $this->db->group_by("hora_inicio");
+        $this->db->from('instalacion');
+        $this->db->join('servicio', 'servicio.id_s=instalacion.motivo');
+        $this->db->join('tecnico', 'tecnico.id_t=instalacion.tecnico');
+        return $this->db->get();
+    }
+
+    function actualizar_reserva($id, $abonado, $orden, $nombre, $direccion, $fecha, $h_inicio, $h_fin, $obs, $material, $cb_s, $cb_tec, $estado_r) {
+        $this->db->select('*');
+        $this->db->where('numero', $id);
+        $cantidad = $this->db->get('instalacion')->num_rows();
+        if ($cantidad == 1):
+            $data = array(
+                "n_abonado" => $abonado,
+                "n_orden" => $orden,
+                "nombre" => $nombre,
+                "direccion" => $direccion,
+                "motivo" => $cb_s,
+                "fecha" => $fecha,
+                "hora_inicio" => $h_inicio,
+                "hora_fin" => $h_fin,
+                "observacion" => $obs,
+                "mat_seriado" => $material,
+                "tecnico" => $cb_tec,
+                "estado" => $estado_r
+            );
+            $this->db->where('numero', $id);
+            $this->db->update("instalacion", $data);
+            return 0;
+        else:
+            return 1;
+        endif;
+    }
+
+    function eliminar_reserva($id) {
+        $estado = 'INACTIVO';
+        $this->db->select('*');
+        $this->db->where('numero', $id);
+        $cantidad = $this->db->get('instalacion')->num_rows();
+        if ($cantidad == 1):
+            $data = array(
+                "estado" => $estado
+            );
+            $this->db->where('numero', $id);
+            $this->db->update("instalacion", $data);
+            return 0;
+        else:
+            return 1;
+        endif;
+    }
+
+    //call center
+    function bt_encuesta($id, $e) {
+        $this->db->select('*');
+        $this->db->where('numero', $id);
+        $cantidad = $this->db->get('instalacion')->num_rows();
+        if ($cantidad == 1):
+            $data = array(
+                "encuesta"=>$e,
+                "encuesta_realizada" => "SI"
+            );
+            $this->db->where('numero', $id);
+            $this->db->update("instalacion", $data);
+            return 0;
+        else:
+            return 1;
+        endif;
+    }
+
     //todo tecnico
     function guardar_tec($nombre, $empresa, $estado) {
         $this->db->select('*');
@@ -33,6 +152,12 @@ class modelo extends CI_Model {
         return $this->db->get("tecnico");
     }
 
+    function grilla_tec_a() {
+        $this->db->select('*');
+        $this->db->where('estado_t', "ACTIVO");
+        return $this->db->get("tecnico");
+    }
+
     function actualizar_tec($id, $nombre, $empresa, $estado) {
         $this->db->select('*');
         $this->db->where('id_t', $id);
@@ -43,6 +168,7 @@ class modelo extends CI_Model {
                 "empresa_t" => $empresa,
                 "estado_t" => $estado
             );
+            $this->db->where('id_t', $id);
             $this->db->update("tecnico", $data);
             return 0;
         else:
@@ -61,7 +187,6 @@ class modelo extends CI_Model {
             );
             $this->db->where('id_t', $id);
             $this->db->update("tecnico", $data);
-            echo 'oasdasd';
             return 0;
         else:
             return 1;
@@ -69,13 +194,14 @@ class modelo extends CI_Model {
     }
 
     //todo servicio
-    function guardar_s($nombre, $estado) {
+    function guardar_s($nombre, $tiempo ,$estado) {
         $this->db->select('*');
         $this->db->where('nombre_s', $nombre);
         $cantidad = $this->db->get('servicio')->num_rows();
         if ($cantidad == 0):
             $data = array(
                 "nombre_s" => $nombre,
+                "Tiempo"=>$tiempo,
                 "estado_s" => $estado
             );
             $this->db->insert("servicio", $data);
@@ -85,15 +211,17 @@ class modelo extends CI_Model {
         endif;
     }
 
-    function actualizar_s($id, $nombre, $estado) {
+    function actualizar_s($id, $nombre,$tiempo, $estado) {
         $this->db->select('*');
         $this->db->where('id_s', $id);
         $cantidad = $this->db->get('servicio')->num_rows();
         if ($cantidad == 1):
             $data = array(
                 "nombre_s" => $nombre,
+                 "Tiempo"=>$tiempo,
                 "estado_s" => $estado
             );
+            $this->db->where('id_s', $id);
             $this->db->update("servicio", $data);
             return 0;
         else:
@@ -102,7 +230,6 @@ class modelo extends CI_Model {
     }
 
     function borrar_s($id) {
-        
         $estado = 'INACTIVO';
         $this->db->select('*');
         $this->db->where('id_s', $id);
@@ -113,7 +240,6 @@ class modelo extends CI_Model {
             );
             $this->db->where('id_s', $id);
             $this->db->update("servicio", $data);
-            echo 'oasdasd';
             return 0;
         else:
             return 1;
@@ -122,6 +248,12 @@ class modelo extends CI_Model {
 
     function grilla_s() {
         $this->db->select('*');
+        return $this->db->get("servicio");
+    }
+
+    function grilla_s_a() {
+        $this->db->select('*');
+        $this->db->where('estado_s', "ACTIVO");
         return $this->db->get("servicio");
     }
 
@@ -196,7 +328,6 @@ class modelo extends CI_Model {
         $this->db->select('*');
         return $this->db->get("usuario");
     }
-    
 
 }
 
