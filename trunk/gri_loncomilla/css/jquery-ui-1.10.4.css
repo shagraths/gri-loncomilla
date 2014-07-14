@@ -730,10 +730,12 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
+        
 }
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: .2em .2em 0;
+/*        background: lightblue; lo agregue!!*/
 }
 .ui-tabs .ui-tabs-nav li {
 	list-style: none;
@@ -744,6 +746,7 @@ button.ui-button::-moz-focus-inner {
 	border-bottom-width: 0;
 	padding: 0;
 	white-space: nowrap;
+        
 }
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
 	float: left;
@@ -766,6 +769,7 @@ button.ui-button::-moz-focus-inner {
 	display: block;
 	border-width: 0;
 	padding: 1em 1.4em;
+/*        background: blue;*/
 	background: none;
 }
 .ui-tooltip {
