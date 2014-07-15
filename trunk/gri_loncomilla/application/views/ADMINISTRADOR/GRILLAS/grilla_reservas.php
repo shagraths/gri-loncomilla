@@ -1,5 +1,5 @@
 <? if ($cantidad == 0): ?>
-    <label>no registra reservar!!</label>
+    <label>No registra reservas!!</label>
 <? else: ?>
     <table>
         <thead>
