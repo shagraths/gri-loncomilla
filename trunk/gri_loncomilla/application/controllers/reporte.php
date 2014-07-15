@@ -25,7 +25,7 @@ class Reporte extends CI_Controller {
             $this->pdf->AddPage('L','A4');     
             //HEADER
             $this->pdf->SetFont('Arial', '', 8);
-            $this->pdf->Text(20, 14, 'Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
             $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
             $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
             $this->pdf->Ln(3);
@@ -51,7 +51,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetWidths(array(8,18,40,50,30,25,25,20,30,20));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
-                $this->pdf->Row(array( 'ID','N Orden','Nombre','Dirección','Motivo','Fecha','Hora Inicio','Hora Fin','Material Seriado','Tecnico'));
+                $this->pdf->Row(array( 'ID','N Orden','Nombre','Direccion','Motivo','Fecha','Hora Inicio','Hora Fin','Material Seriado','Tecnico'));
             }
 
             $c = 0;
@@ -98,7 +98,7 @@ class Reporte extends CI_Controller {
             $this->pdf->AddPage();
             //HEADER
             $this->pdf->SetFont('Arial', '', 8);
-            $this->pdf->Text(20, 14, 'Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
             $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
             $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
             $this->pdf->Ln(3);
@@ -109,12 +109,12 @@ class Reporte extends CI_Controller {
             $this->pdf->Ln(5);
             $this->pdf->SetFont('Arial', 'B', 8);
             $this->pdf->Cell(30);
-            $this->pdf->Cell(120, 10, 'INFORMACION DE LOS Usuarios', 0, 0, 'C');
+            $this->pdf->Cell(120, 10, 'INFORMACION DE LOS USUARIOS', 0, 0, 'C');
             $this->pdf->Ln(7);            
            
             $this->pdf->SetFont('Arial', '', 12);
             $this->pdf->Cell(0, 6, '', 0, 1);
-            $this->pdf->Cell(0, 6, 'Datos de busqueda: Todos los usuarios', 0, 1);                      
+            $this->pdf->Cell(0, 6, 'DATOS DE BUSQUEDA: TODOS LOS USUARIOS', 0, 1);                      
             $this->pdf->Ln(4);
         //grilla
             $this->pdf->SetFont('Arial', 'B', 10);
@@ -124,7 +124,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetWidths(array(22, 25, 25,50,20));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
-                $this->pdf->Row(array( 'Rut', 'Nombres','Apellido','Tipo','Estado'));
+                $this->pdf->Row(array( 'RUT', 'NOMBRES','APELLIDOS','TIPO','ESTADO'));
             }
 
             $c = 0;
@@ -170,7 +170,7 @@ class Reporte extends CI_Controller {
             $this->pdf->AddPage();
             //HEADER
             $this->pdf->SetFont('Arial', '', 8);
-            $this->pdf->Text(20, 14, 'Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
             $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
             $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
             $this->pdf->Ln(3);
@@ -186,7 +186,7 @@ class Reporte extends CI_Controller {
            
             $this->pdf->SetFont('Arial', '', 12);
             $this->pdf->Cell(0, 6, '', 0, 1);
-            $this->pdf->Cell(0, 6, 'Datos de busqueda: Todos los servicio', 0, 1);                      
+            $this->pdf->Cell(0, 6, 'DATOS DE BUSQUEDA: TODOS LOS SERVICIOS', 0, 1);                      
             $this->pdf->Ln(4);
         //grilla
             $this->pdf->SetFont('Arial', 'B', 10);
@@ -196,7 +196,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetWidths(array(25, 50,50, 50));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
-                $this->pdf->Row(array( 'ID', 'Nombres','Tiempo','Estado'));
+                $this->pdf->Row(array( 'ID', 'NOMBRE','DURACION','ESTADO'));
             }
 
             $c = 0;
@@ -252,12 +252,12 @@ class Reporte extends CI_Controller {
             $this->pdf->Ln(5);
             $this->pdf->SetFont('Arial', 'B', 8);
             $this->pdf->Cell(30);
-            $this->pdf->Cell(120, 10, 'INFORMACION DE LOS tecnicos', 0, 0, 'C');
+            $this->pdf->Cell(120, 10, 'INFORMACION DE LOS TECNICOS', 0, 0, 'C');
             $this->pdf->Ln(7);            
            
             $this->pdf->SetFont('Arial', '', 12);
             $this->pdf->Cell(0, 6, '', 0, 1);
-            $this->pdf->Cell(0, 6, 'Datos de busqueda: Todos los tecnicos', 0, 1);                      
+            $this->pdf->Cell(0, 6, 'DATOS DE BUSQUEDA: TODOS LOS TECNICOS', 0, 1);                      
             $this->pdf->Ln(4);
         //grilla
             $this->pdf->SetFont('Arial', 'B', 10);
@@ -267,7 +267,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetWidths(array(25, 50, 50));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
-                $this->pdf->Row(array( 'ID', 'Nombres','Estado'));
+                $this->pdf->Row(array( 'ID', 'NOMBRES','ESTADO'));
             }
 
             $c = 0;
