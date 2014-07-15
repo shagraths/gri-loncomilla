@@ -38,11 +38,13 @@ class modelo extends CI_Model {
     }
 
     function grilla_reserva($fecha) {
+        
         $i = "07:00:00";
         $f = "22:00:00";
         $array = array('hora_inicio >=' => $i, 'hora_inicio <=' => $f);
         $this->db->select('*');
         $this->db->where('fecha', $fecha);
+        $this->db->where('estado', "ACTIVO");
         $this->db->where($array);
         $this->db->group_by("hora_inicio");
         $this->db->from('instalacion');
@@ -56,6 +58,7 @@ class modelo extends CI_Model {
         $f = "22:00:00";
         $array = array('hora_inicio >=' => $i, 'hora_inicio <=' => $f);
         $this->db->select('*');
+        $this->db->where('estado', "ACTIVO");
         $this->db->where('fecha', $fecha);
         $this->db->where('encuesta_realizada', "NO");
         $this->db->where($array);
@@ -253,6 +256,12 @@ class modelo extends CI_Model {
 
     function grilla_s_a() {
         $this->db->select('*');
+        $this->db->where('estado_s', "ACTIVO");
+        return $this->db->get("servicio");
+    }
+    function grilla_s_a_id($cb_s) {
+        $this->db->select('*');
+        $this->db->where('id_s', $cb_s);
         $this->db->where('estado_s', "ACTIVO");
         return $this->db->get("servicio");
     }
