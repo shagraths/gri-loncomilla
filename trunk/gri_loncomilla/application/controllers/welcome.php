@@ -101,11 +101,19 @@ class Welcome extends CI_Controller {
         $nombre = $this->input->post('nombre');
         $direccion = $this->input->post('direccion');
         $fecha = $this->input->post('fecha');
-        $h_inicio = $this->input->post('h_inicio');
-        $h_fin = $this->input->post('h_fin');
+        $h_inicio = $this->input->post('h_inicio');  
+        $tiempo="";
+        
         $obs = $this->input->post('obs');
         $material = $this->input->post('material');
         $cb_s = $this->input->post('cb_s');
+        
+        $data = $this->modelo->grilla_s_a_id($cb_s)->result();
+        foreach ($data as $fila) {
+            $tiempo = $fila->Tiempo;
+        }
+        
+        $h_fin = $this->sumarHoras($h_inicio, $tiempo);
         $cb_tec = $this->input->post('cb_tec');
         $estado_r = $this->input->post('estado_r');
 
@@ -115,7 +123,30 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array('valor' => $valor));
     }
+    function sumarHoras($horaini, $horafin) {
+        //TERMINAR
+        date_default_timezone_set("Europe/Madrid");
+//        $horaini = $this->input->post("i");//02:00:00
+//        $horafin = $this->input->post("f");//01:00:00
 
+        $horai = substr($horaini, 0, 2); //02
+        $mini = substr($horaini, 3, 2); //00
+        $segi = substr($horaini, 6, 2); //00
+
+        $horaf = substr($horafin, 0, 2); //01
+        $minf = substr($horafin, 3, 2); //00
+        $segf = substr($horafin, 6, 2); //00            
+        $ini = ((($horai * 60) * 60) + ($mini * 60) + $segi);
+        $fin = ((($horaf * 60) * 60) + ($minf * 60) + $segf);
+
+        $dif = $fin + $ini;
+
+        $difh = floor($dif / 3600); //10800/3600=3
+        $difm = floor(($dif - ($difh * 3600)) / 60); //10800+(3*3600)/60=10620
+        $difs = $dif - ($difm * 60) - ($difh * 3600); //
+        return date("H:i:s", mktime($difh, $difm, $difs));
+//        echo json_encode(array('hora' => date("H:i:s", mktime($difh, $difm, $difs))));
+    }
     function grilla_reserva() {
         date_default_timezone_set("America/Santiago");
         $fecha = date('Y-m-d');
@@ -139,16 +170,24 @@ class Welcome extends CI_Controller {
 
     function actualizar_reserva() {
         $id = $this->input->post('id');
-        $abonado = $this->input->post('abonado');
+       $abonado = $this->input->post('abonado');
         $orden = $this->input->post('orden');
         $nombre = $this->input->post('nombre');
         $direccion = $this->input->post('direccion');
         $fecha = $this->input->post('fecha');
-        $h_inicio = $this->input->post('h_inicio');
-        $h_fin = $this->input->post('h_fin');
+        $h_inicio = $this->input->post('h_inicio');  
+        $tiempo="";
+        
         $obs = $this->input->post('obs');
         $material = $this->input->post('material');
         $cb_s = $this->input->post('cb_s');
+        
+        $data = $this->modelo->grilla_s_a_id($cb_s)->result();
+        foreach ($data as $fila) {
+            $tiempo = $fila->Tiempo;
+        }
+        
+        $h_fin = $this->sumarHoras($h_inicio, $tiempo);
         $cb_tec = $this->input->post('cb_tec');
         $estado_r = $this->input->post('estado_r');
 
