@@ -267,12 +267,12 @@
                         <option value="tecnico">Tecnico</option>
                     </select>
                 </td>
-                <td><button id="reporte_general">Crear</button></td>
+                <td><button id="reporte_general">Emitir Informe</button></td>
             </tr>
             <tr>
                 <td>Generar planilla</td>
                 <td><input id="fecha_horario" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
-                <td><button id="reporte_horario">Buscar</button></td>
+                <td><button id="reporte_horario">Emitir Plantilla</button></td>
             </tr>
         </table>
     </div>
