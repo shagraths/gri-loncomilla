@@ -56,13 +56,20 @@ function verificarLogin() {
             );
 }
 function cerrar_sesion() {
-    $.post(
-            base_url + "welcome/cerrar_sesion",
-            {},
-            function() {
-                verificarLogin();
-            }
-    );
+    var answer = confirm("¿Realmente quieres cerrar sesión?")
+    if (answer) {
+        $.post(
+                base_url + "welcome/cerrar_sesion",
+                {},
+                function() {
+                    verificarLogin();
+                }
+        );
+    }
+    else {
+
+    }
+
 }
 function conectar() {
     var login = $("#user").val();
@@ -251,7 +258,7 @@ function actualizar_reserva() {
     }
 }
 function eliminar_reserva(id) {
-    var answer = confirm("realmente quieres borrar?")
+    var answer = confirm("¿Realmente quieres borrar la reserva N°: ?" + id);
     if (answer) {
         $.post(
                 base_url + "welcome/eliminar_reserva",
@@ -260,7 +267,7 @@ function eliminar_reserva(id) {
         grilla_reserva();
     }
     else {
-        alert("no se ha hecho ningun cambio!")
+        alert(" No se ha hecho ningun cambio");
     }
 
 
@@ -333,16 +340,16 @@ function bt_encuesta() {
     var id = $("#id_r").val();
     var e = $("#encuesta").val();
     if (e == '') {
-        alert("Faltan datos por completar");
+        alert("Debe completar la encuesta");
     } else {
         $.post(
                 base_url + "welcome/bt_encuesta",
                 {id: id, e: e},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error al registrar");
             } else {
-                alert("encuesta realizada correctamente");
+                alert("Encuesta realizada correctamente");
                 $("#id_r").val("");
                 $("#encuesta").val("");
                 grilla_reserva_e();
@@ -365,9 +372,9 @@ function guardar_tec() {
                 {nombre: nombre, empresa: empresa, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error tecnico ya ingresado");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#nombre_tec").val("");
                 $("#empresa_tec").val("");
                 $("#estado_tec").val("SELECCIONE");
@@ -403,9 +410,9 @@ function actualizar_tec() {
                 {id: id, nombre: nombre, empresa: empresa, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error tecnico ya ingresado");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#id_tec").val("");
                 $("#nombre_tec").val("");
                 $("#empresa_tec").val("");
@@ -427,11 +434,18 @@ function cargar_tec(id, nombre, empresa, estado) {
     $("#guardar_tec").button("disable");
 }
 function borrar_tec(id) {
-    $.post(
-            base_url + "welcome/borrar_tec",
-            {id: id}
-    );
-    grilla_tec();
+    var answer = confirm("¿Realmente quieres borrar el tecnico N°: ?" + id);
+    if (answer) {
+        $.post(
+                base_url + "welcome/borrar_tec",
+                {id: id}
+        );
+        grilla_tec();
+    }
+    else {
+        alert(" No se ha hecho ningun cambio");
+    }
+
 }
 function combo_t() {
     //combobox
@@ -456,9 +470,9 @@ function guardar_s() {
                 {nombre: nombre, tiempo: tiempo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error el servicio ya esta ingresado");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#nombre_s").val("");
                 $("#h_fin").val("");
                 $("#estado_s").val("SELECCIONE");
@@ -483,9 +497,9 @@ function actualizar_s() {
                 {id: id, nombre: nombre, tiempo: tiempo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error al modificar");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#id_s").val("");
                 $("#nombre_s").val("");
                 $("#h_fin").val("");
@@ -518,11 +532,18 @@ function cargar_s(id, nombre, tiempo, estado) {
     $("#guardar_s").button("disable");
 }
 function borrar_s(id) {
-    $.post(
-            base_url + "welcome/borrar_s",
-            {id: id}
-    );
-    grilla_s();
+    var answer = confirm("¿Realmente quieres borrar el servicio N°: ?" + id);
+    if (answer) {
+        $.post(
+                base_url + "welcome/borrar_s",
+                {id: id}
+        );
+        grilla_s();
+    }
+    else {
+        alert(" No se ha hecho ningun cambio");
+    }
+
 }
 function combo_s() {
     //combobox
@@ -550,9 +571,9 @@ function guardar_u() {
                 {rut: rut, nombre: nombre, apellido: apellido, clave: clave, tipo: tipo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error usuario ya ingresado");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#rut").val("");
                 $("#nombre_u").val("");
                 $("#apellido").val("");
@@ -574,8 +595,10 @@ function actualizar_u() {
     var nombre = $("#nombre_u").val();
     var apellido = $("#apellido").val();
     var clave = $("#clave").val();
+    var rclave = $("#rclave").val();
     var tipo = $("#tipo_u").val();
     var estado = $("#estado_u").val();
+    
     if (rut == '' || nombre == '' || apellido == '' || tipo == 'SELECCIONE' || estado == 'SELECCIONE') {
         alert("Faltan datos por completar");
     } else {
@@ -584,9 +607,9 @@ function actualizar_u() {
                 {rut: rut, nombre: nombre, apellido: apellido, clave: clave, tipo: tipo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
-                alert("error al registrar");
+                alert("Error al modificar usuario");
             } else {
-                alert("datos almacinados correctamente");
+                alert("Datos almacinados correctamente");
                 $("#rut").val("");
                 $("#nombre_u").val("");
                 $("#apellido").val("");
@@ -644,11 +667,18 @@ function desbloquear() {
     $("#desbloquear").button("disable");
 }
 function borrar_u(rut) {
-    $.post(
+   var answer = confirm("¿Realmente quieres borrar el usuario N° R.U.T: ?" + rut);
+    if (answer) {
+        $.post(
             base_url + "welcome/borrar_u",
             {rut: rut}
     );
     grilla_u();
+    }
+    else {
+        alert(" No se ha hecho ningun cambio");
+    }
+    
 }
 function reporte_general() {
     var r = $("#tipo_reporte").val();

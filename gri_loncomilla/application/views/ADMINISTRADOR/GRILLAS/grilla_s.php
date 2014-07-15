@@ -1,5 +1,5 @@
 <? if ($cantidad == 0): ?>
-    <label>no registra Dias Festivos!!</label>
+    <label>No registra servicios!!</label>
 <? else: ?>
     <table>
         <thead>
