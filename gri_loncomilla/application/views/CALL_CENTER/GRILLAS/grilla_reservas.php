@@ -14,8 +14,7 @@
         <th>Hora Fin</th>
         <th>Observación</th>
         <th>Material Seriado</th>
-        <th>Tecnico</th>        
-        <th>Estado</th>
+        <th>Tecnico</th>                
         <th>Editar</th>
     </thead>
     <tbody>
@@ -35,8 +34,7 @@
                     <td><?= $filas->hora_fin; ?></td>
                     <td><?= $filas->observacion; ?></td>     
                     <td><?= $filas->mat_seriado; ?></td>
-                    <td><?= $filas->nombre_t; ?></td>                    
-                    <td><?= $filas->estado; ?></td>                     
+                    <td><?= $filas->nombre_t; ?></td>                                                           
                     <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>,'<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? else: ?>
@@ -52,8 +50,7 @@
                     <td><?= $filas->hora_fin; ?></td>
                     <td><?= $filas->observacion; ?></td>     
                     <td><?= $filas->mat_seriado; ?></td>
-                    <td><?= $filas->nombre_t; ?></td>                    
-                    <td><?= $filas->estado; ?></td>                     
+                    <td><?= $filas->nombre_t; ?></td>                                                          
                     <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>,'<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? endif; ?>

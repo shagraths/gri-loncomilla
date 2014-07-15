@@ -615,3 +615,12 @@ function reporte_general() {
         }
     }
 }
+function reporte_horario() {
+    var f = $("#fecha_horario").val();
+    if (f == "") {
+        alerta("Colocar alguna fecha");
+    } else {      
+            window.open(base_url + "reporte/horario?f=" + f);
+        
+    }
+}

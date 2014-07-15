@@ -44,7 +44,9 @@
     $("#bt_filtrar").button().click(function(){
         bt_filtrar();
     });
-    
+     $("#reporte_horario").button().click(function(){
+        reporte_horario();
+    });
     $("#h_inicio").timeEntry({show24Hours: true, showSeconds: false});
     $("#h_fin").timeEntry({show24Hours: true, showSeconds: false});
         
@@ -265,6 +267,11 @@
                     </select>
                 </td>
                 <td><button id="reporte_general">Crear</button></td>
+            </tr>
+            <tr>
+                <td>Filtrar por Fecha</td>
+                <td><input id="fecha_horario" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td><button id="reporte_horario">Buscar</button></td>
             </tr>
         </table>
     </div>

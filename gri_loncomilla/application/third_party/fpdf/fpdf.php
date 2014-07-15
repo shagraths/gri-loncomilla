@@ -72,7 +72,7 @@ var $PDFVersion;         //PDF version number
 *                               Public methods                                 *
 *                                                                              *
 *******************************************************************************/
-function FPDF($orientation='P', $unit='mm', $format='A4')
+function FPDF($orientation='P', $unit='mm', $format='A4')//cambiar a L
 {
 	//Some checks
 	$this->_dochecks();
