@@ -8,7 +8,10 @@
             }
         });
     });
-    
+    grilla_reserva_v();
+    $("#bt_filtrar_v").button().click(function(){
+        bt_filtrar_v();
+    });
     $('.fecha').datepicker({renderer: $.ui.datepicker.defaultRenderer,
         monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -40,10 +43,13 @@
     <div id="tabs-1">
         <table>
             <tr>
-                <td>Filtrar por Fecha</td>
-                <td><input id="fecha_f" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
-                <td><button id="bt_filtrar">PDF</button></td>
+                <td>Generar horario</td>
+                <td><input id="fecha_v" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td><button id="bt_filtrar_v">Buscar</button></td>
             </tr>
         </table>
+        <div id="grilla_reserva_v" class="datagrid">
+
+        </div>
     </div>
 </div>

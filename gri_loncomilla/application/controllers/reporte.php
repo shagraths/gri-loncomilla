@@ -13,7 +13,7 @@ class Reporte extends CI_Controller {
 
     public function horario() {     
         $f = $_GET['f'];
-        $this->pdf = new Pdf();
+        $this->pdf = new Pdf('L','mm','A4');
         // Define el alias para el número de página que se imprimirá en el pie
         $this->pdf->AliasNbPages();
 
@@ -22,22 +22,21 @@ class Reporte extends CI_Controller {
 
         $p = $this->modelo->grilla_reserva($f)->result();
         // Agregamos una página
-            $this->pdf->AddPage();
-//            $this->pdf->PDF();
+            $this->pdf->AddPage('L','A4');     
             //HEADER
             $this->pdf->SetFont('Arial', '', 8);
             $this->pdf->Text(20, 14, 'Gri TV Loncomilla', 0, 'C', 0);
             $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
             $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
             $this->pdf->Ln(3);
-            $this->pdf->Image('FOTOS/logo180.jpg', 130, 5, 60);
+            $this->pdf->Image('FOTOS/logo180.jpg', 220, 5, 60);
             $this->pdf->SetFont('Arial', 'B', 13);
             $this->pdf->Cell(30);
-            $this->pdf->Cell(120, 10, 'Lista Instalaciones', 0, 0, 'C');
+            $this->pdf->Cell(220, 10, 'Lista Instalaciones', 0, 0, 'C');
             $this->pdf->Ln(5);
             $this->pdf->SetFont('Arial', 'B', 8);
             $this->pdf->Cell(30);
-            $this->pdf->Cell(120, 10, 'INFORMACION DE LAS INSTALACIONES', 0, 0, 'C');
+            $this->pdf->Cell(218, 10, 'INFORMACION DE LAS INSTALACIONES', 0, 0, 'C');
             $this->pdf->Ln(7);            
            
             $this->pdf->SetFont('Arial', '', 12);
