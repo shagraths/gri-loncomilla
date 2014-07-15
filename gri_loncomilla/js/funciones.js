@@ -683,7 +683,7 @@ function borrar_u(rut) {
 function reporte_general() {
     var r = $("#tipo_reporte").val();
     if (r == "SELECCIONE") {
-        alerta("elegir algun tipo de reporte");
+        alerta("Elegir algun tipo de reporte");
     } else {
         if (r == "usuario") {
             window.open(base_url + "reporte/usuario");
@@ -699,7 +699,7 @@ function reporte_general() {
 function reporte_horario() {
     var f = $("#fecha_horario").val();
     if (f == "") {
-        alerta("Colocar alguna fecha");
+        alerta("Colocar alguna fecha para crear planilla");
     } else {
         window.open(base_url + "reporte/horario?f=" + f);
 
