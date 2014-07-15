@@ -112,20 +112,18 @@ function guardar_reserva() {
     var direccion = $("#direccion").val();
     var fecha = $("#fecha").val();
     var h_inicio = $("#h_inicio").val();
-    var h_fin = $("#h_fin").val();
     var obs = $("#obs").val();
     var material = $("#material").val();
     var cb_s = $("#cb_s").val();
     var cb_tec = $("#cb_tec").val();
-    var estado_r = $("#estado_r").val();
+    var estado_r = "ACTIVO";
     if (abonado == '' || orden == '' || nombre == '' || direccion == ''
-            || fecha == '' || h_inicio == '' || h_fin == '' || h_inicio == ''
-            || obs == '' || material == '' || cb_s == '' || cb_tec == '' || estado_r == 'SELECCIONE') {
+            || fecha == '' || h_inicio == '' || cb_s == '' || cb_tec == '' ) {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/guardar_reserva",
-                {abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, h_fin: h_fin, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
+                {abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
@@ -141,8 +139,7 @@ function guardar_reserva() {
                 $("#obs").val("");
                 $("#material").val("");
                 $("#cb_s").val("1");
-                $("#cb_tec").val("1");
-                $("#estado_r").val("SELECCIONE");
+                $("#cb_tec").val("1");                
                 grilla_reserva();
                 $("#actualizar_reserva").button("disable");
                 $("#guardar_reserva").button("enable");
@@ -168,12 +165,12 @@ function cargar_reserva(numero, n_abonado, n_orden, nombre, direccion, motivo, f
     $("#orden").val(n_orden);
     $("#nombre").val(nombre);
     $("#direccion").val(direccion);
+    $("#cb_s").val(motivo);
     $("#fecha").val(fecha);
     $("#h_inicio").val(hora_inicio);
     $("#h_fin").val(hora_fin);
     $("#obs").val(observacion);
-    $("#material").val(mat_seriado);
-    $("#estado_r").val(estado);    
+    $("#material").val(mat_seriado);        
     $("#actualizar_reserva").button("enable");
     $("#guardar_reserva").button("disable");
     $("#id_r").attr("readonly", true);
@@ -197,21 +194,19 @@ function actualizar_reserva() {
     var nombre = $("#nombre").val();
     var direccion = $("#direccion").val();
     var fecha = $("#fecha").val();
-    var h_inicio = $("#h_inicio").val();
-    var h_fin = $("#h_fin").val();
+    var h_inicio = $("#h_inicio").val();    
     var obs = $("#obs").val();
     var material = $("#material").val();
     var cb_s = $("#cb_s").val();
     var cb_tec = $("#cb_tec").val();
-    var estado_r = $("#estado_r").val();
-    if (abonado == '' || orden == '' || nombre == '' || direccion == ''
-            || fecha == '' || h_inicio == '' || h_fin == '' || h_inicio == ''
-            || obs == '' || material == '' || cb_s == '' || cb_tec == '' || estado_r == 'SELECCIONE') {
+    var estado_r = "ACTIVO";
+    if (abonado == '' || orden == '' || nombre == '' || direccion == '' || fecha == '' || h_inicio == '' 
+           || cb_s == '' || cb_tec == '') {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/actualizar_reserva",
-                {id:id,abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, h_fin: h_fin, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
+                {id:id,abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
@@ -243,7 +238,7 @@ function eliminar_reserva(id) {
             base_url + "welcome/eliminar_reserva",
             {id: id}
     );
-    grilla_tec();
+    grilla_reserva();
 }
 function  bt_filtrar(){
     var fecha = $("#fecha_f").val();
