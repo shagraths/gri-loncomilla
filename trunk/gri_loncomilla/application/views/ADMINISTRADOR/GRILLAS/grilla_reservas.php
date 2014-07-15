@@ -15,8 +15,8 @@
         <th>Observación</th>
         <th>Material Seriado</th>
         <th>Tecnico</th>
-        <th>encuesta</th>
-        <th>Estado</th>
+        <th>Encuesta</th>  
+        <th>¿Encuesta realizada?</th> 
         <th>Borrar</th>
         <th>Editar</th>
     </thead>
@@ -38,10 +38,10 @@
                     <td><?= $filas->observacion; ?></td>     
                     <td><?= $filas->mat_seriado; ?></td>
                     <td><?= $filas->nombre_t; ?></td>
-                    <td><?= $filas->encuesta; ?></td>
-                    <td><?= $filas->estado; ?></td> 
+                    <td><?= $filas->encuesta; ?></td>                    
+                    <td><?= $filas->encuesta_realizada; ?></td>
                     <td><button onclick="eliminar_reserva(<?= $filas->numero; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>,'<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>)"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? else: ?>
                 <tr align="center" class="alt">
@@ -57,10 +57,10 @@
                     <td><?= $filas->observacion; ?></td>     
                     <td><?= $filas->mat_seriado; ?></td>
                     <td><?= $filas->nombre_t; ?></td>
-                    <td><?= $filas->encuesta; ?></td>
-                    <td><?= $filas->estado; ?></td> 
+                    <td><?= $filas->encuesta; ?></td>   
+                    <td><?= $filas->encuesta_realizada; ?></td> 
                     <td><button onclick="eliminar_reserva(<?= $filas->numero; ?>)"><span class="ui-icon ui-icon-trash"></span></button></td>
-                    <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>,'<?= $filas->estado; ?>')"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
+                    <td><button onclick="cargar_reserva(<?= $filas->numero; ?>, <?= $filas->n_abonado; ?>, <?= $filas->n_orden; ?>,'<?= $filas->nombre; ?>', '<?= $filas->direccion; ?>', <?= $filas->motivo; ?>,'<?= $filas->fecha; ?>','<?= $filas->hora_inicio; ?>','<?= $filas->hora_fin; ?>','<?= $filas->observacion; ?>',<?= $filas->mat_seriado; ?>,<?= $filas->tecnico; ?>)"><span class="ui-icon ui-icon-circle-arrow-n"></span></button></td>
                 </tr>
             <? endif; ?>
         <?php endforeach; ?>
