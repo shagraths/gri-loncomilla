@@ -270,7 +270,7 @@
                 <td><button id="reporte_general">Crear</button></td>
             </tr>
             <tr>
-                <td>Filtrar por Fecha</td>
+                <td>Generar planilla</td>
                 <td><input id="fecha_horario" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
                 <td><button id="reporte_horario">Buscar</button></td>
             </tr>

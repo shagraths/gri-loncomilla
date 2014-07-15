@@ -25,6 +25,7 @@ class Welcome extends CI_Controller {
     function vendedor() {
         $this->load->view('VENDEDOR/ver_horario');
     }
+
     function gerente() {
         $this->load->view('GERENTE/todo');
     }
@@ -104,18 +105,18 @@ class Welcome extends CI_Controller {
         $nombre = $this->input->post('nombre');
         $direccion = $this->input->post('direccion');
         $fecha = $this->input->post('fecha');
-        $h_inicio = $this->input->post('h_inicio');  
-        $tiempo="";
+        $h_inicio = $this->input->post('h_inicio');
+        $tiempo = "";       
         
         $obs = $this->input->post('obs');
         $material = $this->input->post('material');
         $cb_s = $this->input->post('cb_s');
-        
+
         $data = $this->modelo->grilla_s_a_id($cb_s)->result();
         foreach ($data as $fila) {
             $tiempo = $fila->Tiempo;
         }
-        
+
         $h_fin = $this->sumarHoras($h_inicio, $tiempo);
         $cb_tec = $this->input->post('cb_tec');
         $estado_r = $this->input->post('estado_r');
@@ -126,6 +127,7 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array('valor' => $valor));
     }
+
     function sumarHoras($horaini, $horafin) {
         //TERMINAR
         date_default_timezone_set("Europe/Madrid");
@@ -150,19 +152,19 @@ class Welcome extends CI_Controller {
         return date("H:i:s", mktime($difh, $difm, $difs));
 //        echo json_encode(array('hora' => date("H:i:s", mktime($difh, $difm, $difs))));
     }
+
     function grilla_reserva() {
         date_default_timezone_set("America/Santiago");
         $fecha = date('Y-m-d');
-//        echo 'año: '.$año = substr($fecha, 0, 4);
-//        echo 'mes: '.$mes = substr($fecha, 5, 2);
-//        echo 'dia: '.$dia = substr($fecha, 8, 2);
-//        echo 'nuevo dia: '.$dia;
-        $data = $this->modelo->grilla_reserva($fecha);
+        $nuevafecha = strtotime('+1 day', strtotime($fecha));
+        $nuevafecha = date('Y-m-d', $nuevafecha);
+
+        $data = $this->modelo->grilla_reserva($nuevafecha);
         $datos['cantidad'] = $data->num_rows();
         $datos['datos'] = $data->result();
         $this->load->view('ADMINISTRADOR/GRILLAS/grilla_reservas', $datos);
     }
-   
+
     function bt_filtrar() {
         $fecha = $this->input->post('fecha');
         $data = $this->modelo->grilla_reserva($fecha);
@@ -173,23 +175,23 @@ class Welcome extends CI_Controller {
 
     function actualizar_reserva() {
         $id = $this->input->post('id');
-       $abonado = $this->input->post('abonado');
+        $abonado = $this->input->post('abonado');
         $orden = $this->input->post('orden');
         $nombre = $this->input->post('nombre');
         $direccion = $this->input->post('direccion');
         $fecha = $this->input->post('fecha');
-        $h_inicio = $this->input->post('h_inicio');  
-        $tiempo="";
-        
+        $h_inicio = $this->input->post('h_inicio');
+        $tiempo = "";
+
         $obs = $this->input->post('obs');
         $material = $this->input->post('material');
         $cb_s = $this->input->post('cb_s');
-        
+
         $data = $this->modelo->grilla_s_a_id($cb_s)->result();
         foreach ($data as $fila) {
             $tiempo = $fila->Tiempo;
         }
-        
+
         $h_fin = $this->sumarHoras($h_inicio, $tiempo);
         $cb_tec = $this->input->post('cb_tec');
         $estado_r = $this->input->post('estado_r');
@@ -214,8 +216,8 @@ class Welcome extends CI_Controller {
         $datos['cantidad'] = $data->num_rows();
         $datos['datos'] = $data->result();
         $this->load->view('CALL_CENTER/GRILLAS/grilla_reservas', $datos);
-        
     }
+
     function bt_filtrar_e() {
         $fecha = $this->input->post('fecha');
         $data = $this->modelo->grilla_reserva_e($fecha);
@@ -223,6 +225,7 @@ class Welcome extends CI_Controller {
         $datos['datos'] = $data->result();
         $this->load->view('CALL_CENTER/GRILLAS/grilla_reservas', $datos);
     }
+
     //vendedor
     function grilla_reserva_v() {
         date_default_timezone_set("America/Santiago");
@@ -243,7 +246,7 @@ class Welcome extends CI_Controller {
 
     function bt_encuesta() {
         $id = $this->input->post('id');
-        $e = $this->input->post('e');        
+        $e = $this->input->post('e');
         $valor = 1;
         if ($this->modelo->bt_encuesta($id, $e) == 0) {
             $valor = 0;
@@ -298,7 +301,7 @@ class Welcome extends CI_Controller {
         $tiempo = $this->input->post('tiempo');
         $estado = $this->input->post('estado');
         $valor = 1;
-        if ($this->modelo->guardar_s($nombre,$tiempo,$estado) == 0) {
+        if ($this->modelo->guardar_s($nombre, $tiempo, $estado) == 0) {
             $valor = 0;
         }
         echo json_encode(array('valor' => $valor));
@@ -310,7 +313,7 @@ class Welcome extends CI_Controller {
         $tiempo = $this->input->post('tiempo');
         $estado = $this->input->post('estado');
         $valor = 1;
-        if ($this->modelo->actualizar_s($id, $nombre,$tiempo, $estado) == 0) {
+        if ($this->modelo->actualizar_s($id, $nombre, $tiempo, $estado) == 0) {
             $valor = 0;
         }
         echo json_encode(array('valor' => $valor));

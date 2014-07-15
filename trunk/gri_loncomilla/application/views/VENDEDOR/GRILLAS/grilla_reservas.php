@@ -8,13 +8,10 @@
         <th>N° Orden</th>
         <th>Nombre</th>
         <th>Dirección</th>
-        <th>Motivo</th>
-        <th>Fecha</th>        
+        <th>Motivo</th>       
         <th>Hora Inicio</th>
         <th>Hora Fin</th>
-        <th>Observación</th>
-        <th>Material Seriado</th>
-        <th>Tecnico</th>                   
+        <th>Observación</th>                
     </thead>
     <tbody>
         <? $i = 0; ?>
@@ -28,12 +25,9 @@
                     <td><?= $filas->nombre; ?></td>
                     <td><?= $filas->direccion; ?></td>
                     <td><?= $filas->nombre_s; ?></td>
-                    <td><?= $filas->fecha; ?></td>
                     <td><?= $filas->hora_inicio; ?></td>
                     <td><?= $filas->hora_fin; ?></td>
-                    <td><?= $filas->observacion; ?></td>     
-                    <td><?= $filas->mat_seriado; ?></td>
-                    <td><?= $filas->nombre_t; ?></td>                                                                              
+                    <td><?= $filas->observacion; ?></td>                                                                                  
                 </tr>
             <? else: ?>
                 <tr align="center" class="alt">
@@ -43,12 +37,9 @@
                     <td><?= $filas->nombre; ?></td>
                     <td><?= $filas->direccion; ?></td>
                     <td><?= $filas->nombre_s; ?></td>
-                    <td><?= $filas->fecha; ?></td>
                     <td><?= $filas->hora_inicio; ?></td>
                     <td><?= $filas->hora_fin; ?></td>
-                    <td><?= $filas->observacion; ?></td>     
-                    <td><?= $filas->mat_seriado; ?></td>
-                    <td><?= $filas->nombre_t; ?></td>                                                                              
+                    <td><?= $filas->observacion; ?></td>                                                                                  
                 </tr>
             <? endif; ?>
         <?php endforeach; ?>
