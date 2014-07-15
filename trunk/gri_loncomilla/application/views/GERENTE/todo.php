@@ -73,6 +73,19 @@
         dayStatus: 'DD d MM',
         defaultStatus: '',
         isRTL: false});
+    //encuesta
+    $("#bt_encuesta").button().click(function(){
+        bt_encuesta();
+    });
+    grilla_reserva_e();
+    $("#bt_filtrar_e").button().click(function(){
+        bt_filtrar_e();
+    });
+    //vendedor
+    grilla_reserva_v();
+    $("#bt_filtrar_v").button().click(function(){
+        bt_filtrar_v();
+    });
 </script>
 <div id="tabs">
     <ul>
@@ -80,7 +93,9 @@
         <li><a href="#tabs-5">Reportes</a></li>
         <li><a href="#tabs-2">Tecnico</a></li>
         <li><a href="#tabs-3">Servicio</a></li>
-        <li><a href="#tabs-4">Usuarios</a></li>        
+        <li><a href="#tabs-4">Usuarios</a></li>    
+        <li><a href="#tabs-6">Encuesta</a></li>
+        <li><a href="#tabs-7" >Horario</a></li>    
     </ul>
     <div id="tabs-1">
         <input id="id_r" hidden>
@@ -276,5 +291,37 @@
             </tr>
         </table>
     </div>
+    <div id="tabs-6">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td><input id="id_r"></td>
+            </tr>                
+            <tr>                
+                <td>Realizar Encuesta</td>
+                <td><textarea id="encuesta"></textarea></td>
+                <td><button id="bt_encuesta" disabled>Listo</button></td>
+            </tr>
+            <tr>
+                <td>Filtrar por Fecha</td>
+                <td><input id="fecha_e" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td><button id="bt_filtrar_e">Buscar</button></td>
+            </tr>
+        </table>
+        <div id="grilla_reserva_e" class="datagrid">
+
+        </div>
+    </div>
+    <div id="tabs-7">
+        <table>
+            <tr>
+                <td>Generar horario</td>
+                <td><input id="fecha_v" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td><button id="bt_filtrar_v">Buscar</button></td>
+            </tr>
+        </table>
+        <div id="grilla_reserva_v" class="datagrid">
+
+        </div>
 </div>
 

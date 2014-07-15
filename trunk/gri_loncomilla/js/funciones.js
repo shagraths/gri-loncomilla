@@ -26,12 +26,20 @@ function verificarLogin() {
                                 $("#contenido").html(ruta);
                             }
                             );
-                        } else {//vendedor
-                            $.post(
-                                    base_url + "welcome/vendedor", {}, function(ruta) {
-                                $("#contenido").html(ruta);
+                        } else {//gerente
+                            if (datos.nivel == "GERENTE") {
+                                $.post(
+                                        base_url + "welcome/gerente", {}, function(ruta) {
+                                    $("#contenido").html(ruta);
+                                }
+                                );
+                            } else {
+                                $.post(
+                                        base_url + "welcome/vendedor", {}, function(ruta) {
+                                    $("#contenido").html(ruta);
+                                }
+                                );
                             }
-                            );
                         }
                     }
                 } else {//sin login
@@ -81,12 +89,21 @@ function conectar() {
                             $("#contenido").html(ruta);
                         }
                         );
-                    } else {//jefe tecnico
-                        $.post(
-                                base_url + "welcome/vendedor", {}, function(ruta) {
-                            $("#contenido").html(ruta);
-                        }
-                        );
+                    } else {//gerente
+                        if (datos.nivel == "GERENTE") {
+                           
+                                $.post(
+                                        base_url + "welcome/gerente", {}, function(ruta) {
+                                    $("#contenido").html(ruta);
+                                }
+                                );
+                            } else {
+                                $.post(
+                                        base_url + "welcome/vendedor", {}, function(ruta) {
+                                    $("#contenido").html(ruta);
+                                }
+                                );
+                            }
                     }
                 }
             } else {
@@ -118,7 +135,7 @@ function guardar_reserva() {
     var cb_tec = $("#cb_tec").val();
     var estado_r = "ACTIVO";
     if (abonado == '' || orden == '' || nombre == '' || direccion == ''
-            || fecha == '' || h_inicio == '' || cb_s == '' || cb_tec == '' ) {
+            || fecha == '' || h_inicio == '' || cb_s == '' || cb_tec == '') {
         alert("Faltan datos por completar");
     } else {
         $.post(
@@ -139,7 +156,7 @@ function guardar_reserva() {
                 $("#obs").val("");
                 $("#material").val("");
                 $("#cb_s").val("1");
-                $("#cb_tec").val("1");                
+                $("#cb_tec").val("1");
                 grilla_reserva();
                 $("#actualizar_reserva").button("disable");
                 $("#guardar_reserva").button("enable");
@@ -170,7 +187,7 @@ function cargar_reserva(numero, n_abonado, n_orden, nombre, direccion, motivo, f
     $("#h_inicio").val(hora_inicio);
     $("#h_fin").val(hora_fin);
     $("#obs").val(observacion);
-    $("#material").val(mat_seriado);        
+    $("#material").val(mat_seriado);
     $("#actualizar_reserva").button("enable");
     $("#guardar_reserva").button("disable");
     $("#id_r").attr("readonly", true);
@@ -194,19 +211,19 @@ function actualizar_reserva() {
     var nombre = $("#nombre").val();
     var direccion = $("#direccion").val();
     var fecha = $("#fecha").val();
-    var h_inicio = $("#h_inicio").val();    
+    var h_inicio = $("#h_inicio").val();
     var obs = $("#obs").val();
     var material = $("#material").val();
     var cb_s = $("#cb_s").val();
     var cb_tec = $("#cb_tec").val();
     var estado_r = "ACTIVO";
-    if (abonado == '' || orden == '' || nombre == '' || direccion == '' || fecha == '' || h_inicio == '' 
-           || cb_s == '' || cb_tec == '') {
+    if (abonado == '' || orden == '' || nombre == '' || direccion == '' || fecha == '' || h_inicio == ''
+            || cb_s == '' || cb_tec == '') {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/actualizar_reserva",
-                {id:id,abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
+                {id: id, abonado: abonado, orden: orden, nombre: nombre, direccion: direccion, fecha: fecha, h_inicio: h_inicio, obs: obs, material: material, cb_s: cb_s, cb_tec: cb_tec, estado_r: estado_r},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
@@ -240,16 +257,16 @@ function eliminar_reserva(id) {
     );
     grilla_reserva();
 }
-function  bt_filtrar(){
+function  bt_filtrar() {
     var fecha = $("#fecha_f").val();
-     $.post(
+    $.post(
             base_url + "welcome/bt_filtrar",
-            {fecha:fecha},
-            function(ruta, datos) {
-                $("#grilla_reserva").hide();
-                $("#grilla_reserva").html(ruta, datos);
-                $("#grilla_reserva").show('slow');
-            }
+            {fecha: fecha},
+    function(ruta, datos) {
+        $("#grilla_reserva").hide();
+        $("#grilla_reserva").html(ruta, datos);
+        $("#grilla_reserva").show('slow');
+    }
     );
 
 }
@@ -260,43 +277,68 @@ function grilla_reserva_e() {
             base_url + "welcome/grilla_reserva_e",
             {},
             function(ruta, datos) {
-                $("#grilla_reserva").hide();
-                $("#grilla_reserva").html(ruta, datos);
-                $("#grilla_reserva").show('slow');
+                $("#grilla_reserva_e").hide();
+                $("#grilla_reserva_e").html(ruta, datos);
+                $("#grilla_reserva_e").show('slow');
             }
     );
 }
-function  bt_filtrar_e(){
-    var fecha = $("#fecha_f").val();
-     $.post(
+function  bt_filtrar_e() {
+    var fecha = $("#fecha_e").val();
+    $.post(
             base_url + "welcome/bt_filtrar_e",
-            {fecha:fecha},
-            function(ruta, datos) {
-                $("#grilla_reserva").hide();
-                $("#grilla_reserva").html(ruta, datos);
-                $("#grilla_reserva").show('slow');
-            }
+            {fecha: fecha},
+    function(ruta, datos) {
+        $("#grilla_reserva_e").hide();
+        $("#grilla_reserva_e").html(ruta, datos);
+        $("#grilla_reserva_e").show('slow');
+    }
     );
 
 }
-function bt_encuesta(){
-     var id = $("#id_r").val();
-    var e = $("#encuesta").val();    
-    if (e == '' ) {
+//vista vendedor
+function grilla_reserva_v() {
+    $.post(
+            base_url + "welcome/grilla_reserva_v",
+            {},
+            function(ruta, datos) {
+                $("#grilla_reserva_v").hide();
+                $("#grilla_reserva_v").html(ruta, datos);
+                $("#grilla_reserva_v").show('slow');
+            }
+    );
+}
+function  bt_filtrar_v() {
+    var fecha = $("#fecha_v").val();
+    $.post(
+            base_url + "welcome/bt_filtrar_v",
+            {fecha: fecha},
+    function(ruta, datos) {
+        $("#grilla_reserva_v").hide();
+        $("#grilla_reserva_v").html(ruta, datos);
+        $("#grilla_reserva_v").show('slow');
+    }
+    );
+
+}
+function bt_encuesta() {
+    var id = $("#id_r").val();
+    var e = $("#encuesta").val();
+    if (e == '') {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/bt_encuesta",
-                {id:id, e:e},
+                {id: id, e: e},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
             } else {
                 alert("encuesta realizada correctamente");
                 $("#id_r").val("");
-                $("#encuesta").val("");                
+                $("#encuesta").val("");
                 grilla_reserva_e();
-                $("#bt_encuesta").button("disable");                
+                $("#bt_encuesta").button("disable");
             }
         }, 'json'
                 );
@@ -398,12 +440,12 @@ function guardar_s() {
     var nombre = $("#nombre_s").val();
     var tiempo = $("#h_fin").val();
     var estado = $("#estado_s").val();
-    if (nombre == '' || tiempo=='' || estado == 'SELECCIONE') {
+    if (nombre == '' || tiempo == '' || estado == 'SELECCIONE') {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/guardar_s",
-                {nombre: nombre, tiempo:tiempo, estado: estado},
+                {nombre: nombre, tiempo: tiempo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
@@ -425,12 +467,12 @@ function actualizar_s() {
     var nombre = $("#nombre_s").val();
     var tiempo = $("#h_fin").val();
     var estado = $("#estado_s").val();
-    if (nombre == '' || tiempo =='' || estado == 'SELECCIONE') {
+    if (nombre == '' || tiempo == '' || estado == 'SELECCIONE') {
         alert("Faltan datos por completar");
     } else {
         $.post(
                 base_url + "welcome/actualizar_s",
-                {id:id,nombre: nombre, tiempo:tiempo, estado: estado},
+                {id: id, nombre: nombre, tiempo: tiempo, estado: estado},
         function(datos) {
             if (datos.valor == 1) {
                 alert("error al registrar");
@@ -459,7 +501,7 @@ function grilla_s() {
             }
     );
 }
-function cargar_s(id, nombre, tiempo ,estado) {
+function cargar_s(id, nombre, tiempo, estado) {
     $("#id_s").val(id);
     $("#nombre_s").val(nombre);
     $("#h_fin").val(tiempo);
@@ -507,6 +549,7 @@ function guardar_u() {
                 $("#nombre_u").val("");
                 $("#apellido").val("");
                 $("#clave").val("");
+                $("#rclave").val("");
                 $("#tipo_u").val("SELECCIONE");
                 $("#estado_u").val("SELECCIONE");
                 grilla_u();
@@ -619,8 +662,8 @@ function reporte_horario() {
     var f = $("#fecha_horario").val();
     if (f == "") {
         alerta("Colocar alguna fecha");
-    } else {      
-            window.open(base_url + "reporte/horario?f=" + f);
-        
+    } else {
+        window.open(base_url + "reporte/horario?f=" + f);
+
     }
 }

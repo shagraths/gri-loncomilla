@@ -12,7 +12,7 @@
         bt_encuesta();
     });
     grilla_reserva_e();
-    $("#bt_filtrar").button().click(function(){
+    $("#bt_filtrar_e").button().click(function(){
         bt_filtrar_e();
     });
     $('.fecha').datepicker({renderer: $.ui.datepicker.defaultRenderer,
@@ -57,11 +57,11 @@
             </tr>
             <tr>
                 <td>Filtrar por Fecha</td>
-                <td><input id="fecha_f" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
-                <td><button id="bt_filtrar">Buscar</button></td>
+                <td><input id="fecha_e" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td><button id="bt_filtrar_e">Buscar</button></td>
             </tr>
         </table>
-        <div id="grilla_reserva" class="datagrid">
+        <div id="grilla_reserva_e" class="datagrid">
 
         </div>
     </div>

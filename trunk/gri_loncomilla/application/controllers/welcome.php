@@ -25,6 +25,9 @@ class Welcome extends CI_Controller {
     function vendedor() {
         $this->load->view('VENDEDOR/ver_horario');
     }
+    function gerente() {
+        $this->load->view('GERENTE/todo');
+    }
 
     function call_center() {
         $this->load->view('CALL_CENTER/archivos');
@@ -159,7 +162,7 @@ class Welcome extends CI_Controller {
         $datos['datos'] = $data->result();
         $this->load->view('ADMINISTRADOR/GRILLAS/grilla_reservas', $datos);
     }
-
+   
     function bt_filtrar() {
         $fecha = $this->input->post('fecha');
         $data = $this->modelo->grilla_reserva($fecha);
@@ -211,9 +214,26 @@ class Welcome extends CI_Controller {
         $datos['cantidad'] = $data->num_rows();
         $datos['datos'] = $data->result();
         $this->load->view('CALL_CENTER/GRILLAS/grilla_reservas', $datos);
+        
+    }
+    function bt_filtrar_e() {
+        $fecha = $this->input->post('fecha');
+        $data = $this->modelo->grilla_reserva_e($fecha);
+        $datos['cantidad'] = $data->num_rows();
+        $datos['datos'] = $data->result();
+        $this->load->view('CALL_CENTER/GRILLAS/grilla_reservas', $datos);
+    }
+    //vendedor
+    function grilla_reserva_v() {
+        date_default_timezone_set("America/Santiago");
+        $fecha = date('Y-m-d');
+        $data = $this->modelo->grilla_reserva_e($fecha);
+        $datos['cantidad'] = $data->num_rows();
+        $datos['datos'] = $data->result();
+        $this->load->view('VENDEDOR/GRILLAS/grilla_reservas', $datos);
     }
 
-    function bt_filtrar_e() {
+    function bt_filtrar_v() {
         $fecha = $this->input->post('fecha');
         $data = $this->modelo->grilla_reserva_e($fecha);
         $datos['cantidad'] = $data->num_rows();
