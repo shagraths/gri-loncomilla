@@ -48,7 +48,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetFillColor(85, 107, 47); //color de la cenlda
             $this->pdf->SetTextColor(255); //color del texto
             //definir ancho de cada columna
-            $this->pdf->SetWidths(array(8,18,40,50,30,25,25,20,30,20));
+            $this->pdf->SetWidths(array(8,18,40,50,40,25,25,20,30,20));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
                 $this->pdf->Row(array( 'ID','N Orden','Nombre','Direccion','Motivo','Fecha','Hora Inicio','Hora Fin','Material Seriado','Tecnico'));
@@ -84,8 +84,239 @@ class Reporte extends CI_Controller {
         $this->pdf->Output("reporte usuario.pdf", 'I');
     
     }
+    public function horarioe() {     
+        $f = $_GET['f'];        
+        $this->pdf = new Pdf('L','mm','A4');
+        // Define el alias para el número de página que se imprimirá en el pie
+        $this->pdf->AliasNbPages();
 
-    public function usuario() {       
+        //margenes
+        $this->pdf->SetMargins(10, 30, 20);
+
+        $p = $this->modelo->grilla_reserva($f)->result();
+        // Agregamos una página
+            $this->pdf->AddPage('L','A4');     
+            //HEADER
+            $this->pdf->SetFont('Arial', '', 8);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
+            $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
+            $this->pdf->Ln(3);
+            $this->pdf->Image('FOTOS/logo180.jpg', 220, 5, 60);
+            $this->pdf->SetFont('Arial', 'B', 13);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(220, 10, 'Lista Instalaciones', 0, 0, 'C');
+            $this->pdf->Ln(5);
+            $this->pdf->SetFont('Arial', 'B', 8);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(218, 10, 'INFORMACION DE LAS INSTALACIONES', 0, 0, 'C');
+            $this->pdf->Ln(7);            
+           
+            $this->pdf->SetFont('Arial', '', 12);
+            $this->pdf->Cell(0, 6, '', 0, 1);
+            $this->pdf->Cell(0, 6, 'Datos de busqueda: '.$f, 0, 1);                      
+            $this->pdf->Ln(4);
+        //grilla
+            $this->pdf->SetFont('Arial', 'B', 10);
+            $this->pdf->SetFillColor(85, 107, 47); //color de la cenlda
+            $this->pdf->SetTextColor(255); //color del texto
+            //definir ancho de cada columna
+            $this->pdf->SetWidths(array(18,8,20,30,30,30));
+            for ($i = 0; $i < 1; $i++) {
+                //encabezado de la grilla
+                $this->pdf->Row(array( 'Numero','ID','N Orden','Nombre','Direccion','Motivo'));
+            }
+
+            $c = 0;
+            foreach ($p as $filas) {
+                $c++;
+               
+                //contenido de cada celda
+                if ($c % 2 == 1) {
+                    $this->pdf->SetFillColor(153, 255, 153);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($c,$filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s));
+                } else {
+                    $this->pdf->SetFillColor(102, 204, 51);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($c,$filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s));
+                }
+            }
+        
+
+        /*
+         * Se manda el pdf al navegador
+         *
+         * $this->pdf->Output(nombredelarchivo, destino);
+         *
+         * I = Muestra el pdf en el navegador
+         * D = Envia el pdf para descarga
+         *
+         */
+
+        $this->pdf->Output("reporte usuario.pdf", 'I');
+    
+    }
+    
+    public function horariof() {     
+        $fi = $_GET['fi'];
+        $ff = $_GET['ff'];        
+        $this->pdf = new Pdf('L','mm','A4');
+        // Define el alias para el número de página que se imprimirá en el pie
+        $this->pdf->AliasNbPages();
+
+        //margenes
+        $this->pdf->SetMargins(10, 30, 20);
+
+        $p = $this->modelo->grilla_reservaf($fi,$ff)->result();
+        // Agregamos una página
+            $this->pdf->AddPage('L','A4');     
+            //HEADER
+            $this->pdf->SetFont('Arial', '', 8);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
+            $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
+            $this->pdf->Ln(3);
+            $this->pdf->Image('FOTOS/logo180.jpg', 220, 5, 60);
+            $this->pdf->SetFont('Arial', 'B', 13);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(220, 10, 'Lista Instalaciones', 0, 0, 'C');
+            $this->pdf->Ln(5);
+            $this->pdf->SetFont('Arial', 'B', 8);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(218, 10, 'INFORMACION DE LAS INSTALACIONES', 0, 0, 'C');
+            $this->pdf->Ln(7);            
+           
+            $this->pdf->SetFont('Arial', '', 12);
+            $this->pdf->Cell(0, 6, '', 0, 1);
+            $this->pdf->Cell(0, 6, 'Datos de busqueda: '.$fi.' - '.$ff, 0, 1);                      
+            $this->pdf->Ln(4);
+        //grilla
+            $this->pdf->SetFont('Arial', 'B', 10);
+            $this->pdf->SetFillColor(85, 107, 47); //color de la cenlda
+            $this->pdf->SetTextColor(255); //color del texto
+            //definir ancho de cada columna
+            $this->pdf->SetWidths(array(8,18,40,50,40,25,25,20,30,20));
+            for ($i = 0; $i < 1; $i++) {
+                //encabezado de la grilla
+                $this->pdf->Row(array( 'ID','N Orden','Nombre','Direccion','Motivo','Fecha','Hora Inicio','Hora Fin','Material Seriado','Tecnico'));
+            }
+
+            $c = 0;
+            foreach ($p as $filas) {
+                $c++;
+               
+                //contenido de cada celda
+                if ($c % 2 == 1) {
+                    $this->pdf->SetFillColor(153, 255, 153);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s,$filas->fecha,$filas->hora_inicio,$filas->hora_fin,$filas->mat_seriado,$filas->nombre_t));
+                } else {
+                    $this->pdf->SetFillColor(102, 204, 51);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s,$filas->fecha,$filas->hora_inicio,$filas->hora_fin,$filas->mat_seriado,$filas->nombre_t));
+                }
+            }
+        
+
+        /*
+         * Se manda el pdf al navegador
+         *
+         * $this->pdf->Output(nombredelarchivo, destino);
+         *
+         * I = Muestra el pdf en el navegador
+         * D = Envia el pdf para descarga
+         *
+         */
+
+        $this->pdf->Output("reporte usuario.pdf", 'I');
+    
+    }
+    public function horarioef() {     
+         $fi = $_GET['fi'];
+        $ff = $_GET['ff'];
+               
+        $this->pdf = new Pdf('L','mm','A4');
+        // Define el alias para el número de página que se imprimirá en el pie
+        $this->pdf->AliasNbPages();
+
+        //margenes
+        $this->pdf->SetMargins(10, 30, 20);
+
+        $p = $this->modelo->grilla_reservaf($fi,$ff)->result();
+        // Agregamos una página
+            $this->pdf->AddPage('L','A4');     
+            //HEADER
+            $this->pdf->SetFont('Arial', '', 8);
+            $this->pdf->Text(20, 14, '        Gri TV Loncomilla', 0, 'C', 0);
+            $this->pdf->Text(24, 17, 'Departamento de Ventas', 0, 'C', 0);
+            $this->pdf->Text(26, 20, 'Remuneraciones', 0, 'C', 0);
+            $this->pdf->Ln(3);
+            $this->pdf->Image('FOTOS/logo180.jpg', 220, 5, 60);
+            $this->pdf->SetFont('Arial', 'B', 13);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(220, 10, 'Lista Instalaciones', 0, 0, 'C');
+            $this->pdf->Ln(5);
+            $this->pdf->SetFont('Arial', 'B', 8);
+            $this->pdf->Cell(30);
+            $this->pdf->Cell(218, 10, 'INFORMACION DE LAS INSTALACIONES', 0, 0, 'C');
+            $this->pdf->Ln(7);            
+           
+            $this->pdf->SetFont('Arial', '', 12);
+            $this->pdf->Cell(0, 6, '', 0, 1);
+            $this->pdf->Cell(0, 6, 'Datos de busqueda: '.$fi.' - '.$ff, 0, 1);                  
+            $this->pdf->Ln(4);
+        //grilla
+            $this->pdf->SetFont('Arial', 'B', 10);
+            $this->pdf->SetFillColor(85, 107, 47); //color de la cenlda
+            $this->pdf->SetTextColor(255); //color del texto
+            //definir ancho de cada columna
+            $this->pdf->SetWidths(array(18,8,20,30,30,30));
+            for ($i = 0; $i < 1; $i++) {
+                //encabezado de la grilla
+                $this->pdf->Row(array( 'Numero','ID','N Orden','Nombre','Direccion','Motivo'));
+            }
+
+            $c = 0;
+            foreach ($p as $filas) {
+                $c++;
+               
+                //contenido de cada celda
+                if ($c % 2 == 1) {
+                    $this->pdf->SetFillColor(153, 255, 153);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($c,$filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s));
+                } else {
+                    $this->pdf->SetFillColor(102, 204, 51);
+                    $this->pdf->SetTextColor(0);
+                    $this->pdf->Row(array($c,$filas->numero,$filas->n_orden,$filas->nombre,$filas->direccion,$filas->nombre_s));
+                }
+            }
+        
+
+        /*
+         * Se manda el pdf al navegador
+         *
+         * $this->pdf->Output(nombredelarchivo, destino);
+         *
+         * I = Muestra el pdf en el navegador
+         * D = Envia el pdf para descarga
+         *
+         */
+
+        $this->pdf->Output("reporte usuario.pdf", 'I');
+    
+    }
+
+    public function usuario() {  
+        $e = $_GET['e'];
+        if ($e=="ACTIVO") {
+            $p = $this->modelo->grilla_u_c($e)->result();
+        }elseif ($e=="INACTIVO") {
+            $p = $this->modelo->grilla_u_c($e)->result();
+        }  else {
+            $p = $this->modelo->grilla_u()->result();
+        }
         $this->pdf = new Pdf();
         // Define el alias para el número de página que se imprimirá en el pie
         $this->pdf->AliasNbPages();
@@ -93,7 +324,7 @@ class Reporte extends CI_Controller {
         //margenes
         $this->pdf->SetMargins(20, 30, 20);
 
-        $p = $this->modelo->grilla_u()->result();
+        
         // Agregamos una página
             $this->pdf->AddPage();
             //HEADER
@@ -157,15 +388,21 @@ class Reporte extends CI_Controller {
         $this->pdf->Output("reporte usuario.pdf", 'I');
     
     }
-    public function servicio() {       
+    public function servicio() {    
+        $e = $_GET['e'];
+         if ($e=="ACTIVO") {
+            $p = $this->modelo->grilla_s_c($e)->result();
+        }elseif ($e=="INACTIVO") {
+            $p = $this->modelo->grilla_s_c($e)->result();
+        }  else {
+            $p = $this->modelo->grilla_s()->result();
+        }
         $this->pdf = new Pdf();
         // Define el alias para el número de página que se imprimirá en el pie
         $this->pdf->AliasNbPages();
 
         //margenes
-        $this->pdf->SetMargins(20, 30, 20);
-
-        $p = $this->modelo->grilla_s()->result();
+        $this->pdf->SetMargins(20, 30, 20);        
         // Agregamos una página
             $this->pdf->AddPage();
             //HEADER
@@ -196,7 +433,7 @@ class Reporte extends CI_Controller {
             $this->pdf->SetWidths(array(25, 50,50, 50));
             for ($i = 0; $i < 1; $i++) {
                 //encabezado de la grilla
-                $this->pdf->Row(array( 'ID', 'NOMBRE','DURACION','ESTADO'));
+                $this->pdf->Row(array( 'ID', 'NOMBRE','TIEMPO ESTIMADO','ESTADO'));
             }
 
             $c = 0;
@@ -228,7 +465,15 @@ class Reporte extends CI_Controller {
 
         $this->pdf->Output("reporte servicios.pdf", 'I');
     }
-    public function tecnico() {       
+    public function tecnico() {
+        $e = $_GET['e'];
+        if ($e=="ACTIVO") {
+            $p = $this->modelo->grilla_tec_c($e)->result();
+        }elseif ($e=="INACTIVO") {
+            $p = $this->modelo->grilla_tec_c($e)->result();
+        }  else {
+            $p = $this->modelo->grilla_tec()->result();
+        }
         $this->pdf = new Pdf();
         // Define el alias para el número de página que se imprimirá en el pie
         $this->pdf->AliasNbPages();
@@ -236,7 +481,7 @@ class Reporte extends CI_Controller {
         //margenes
         $this->pdf->SetMargins(20, 30, 20);
 
-        $p = $this->modelo->grilla_tec()->result();
+        
         // Agregamos una página
             $this->pdf->AddPage();
             //HEADER

@@ -162,8 +162,8 @@ function guardar_reserva() {
                 $("#h_fin").val("");
                 $("#obs").val("");
                 $("#material").val("");
-                $("#cb_s").val("");
-                $("#cb_tec").val("");
+                $("#cb_s").val("1");
+                $("#cb_tec").val("1");
                 grilla_reserva();
                 $("#actualizar_reserva").button("disable");
                 $("#guardar_reserva").button("enable");
@@ -258,7 +258,7 @@ function actualizar_reserva() {
     }
 }
 function eliminar_reserva(id) {
-    var answer = confirm("¿Realmente quieres borrar la reserva N°: ?" + id);
+    var answer = confirm("¿Realmente quieres borrar la reserva N°: " + id+"?");
     if (answer) {
         $.post(
                 base_url + "welcome/eliminar_reserva",
@@ -434,7 +434,7 @@ function cargar_tec(id, nombre, empresa, estado) {
     $("#guardar_tec").button("disable");
 }
 function borrar_tec(id) {
-    var answer = confirm("¿Realmente quieres borrar el tecnico N°: ?" + id);
+    var answer = confirm("¿Realmente quieres borrar el tecnico N°: " + id+"?");
     if (answer) {
         $.post(
                 base_url + "welcome/borrar_tec",
@@ -532,7 +532,7 @@ function cargar_s(id, nombre, tiempo, estado) {
     $("#guardar_s").button("disable");
 }
 function borrar_s(id) {
-    var answer = confirm("¿Realmente quieres borrar el servicio N°: ?" + id);
+    var answer = confirm("¿Realmente quieres borrar el servicio N°: " + id+"?");
     if (answer) {
         $.post(
                 base_url + "welcome/borrar_s",
@@ -667,7 +667,7 @@ function desbloquear() {
     $("#desbloquear").button("disable");
 }
 function borrar_u(rut) {
-   var answer = confirm("¿Realmente quieres borrar el usuario N° R.U.T: ?" + rut);
+   var answer = confirm("¿Realmente quieres borrar el usuario N° R.U.T: " + rut+"?");
     if (answer) {
         $.post(
             base_url + "welcome/borrar_u",
@@ -682,26 +682,46 @@ function borrar_u(rut) {
 }
 function reporte_general() {
     var r = $("#tipo_reporte").val();
-    if (r == "SELECCIONE") {
-        alerta("Elegir algun tipo de reporte");
+    var e = $("#e_reporte").val();
+    if (r == "SELECCIONE" || e == "SELECCIONE") {
+        alert("Elegir algun tipo de reporte");
     } else {
         if (r == "usuario") {
-            window.open(base_url + "reporte/usuario");
+            window.open(base_url + "reporte/usuario?e="+e);
         } else {
             if (r == "servicio") {
-                window.open(base_url + "reporte/servicio");
+                window.open(base_url + "reporte/servicio?e="+e);
             } else {
-                window.open(base_url + "reporte/tecnico");
+                window.open(base_url + "reporte/tecnico?e="+e);
             }
         }
     }
 }
 function reporte_horario() {
     var f = $("#fecha_horario").val();
-    if (f == "") {
-        alerta("Colocar alguna fecha para crear planilla");
-    } else {
-        window.open(base_url + "reporte/horario?f=" + f);
-
+    var e = $("#f_reporte").val();
+    if (f == "" || e == "SELECCIONE") {
+        alert("Colocar alguna fecha para crear planilla");
+    }else{
+        if (e=='H'){
+            window.open(base_url + "reporte/horario?f=" + f);
+        }else{
+            window.open(base_url + "reporte/horarioe?f=" + f+ "&e=" + e);
+        }        
+    }
+}
+function reporte_horario_f() {
+    var fi = $("#fi").val();
+    var ff = $("#ff").val();
+    var e = $("#ff_reporte").val();
+    alert(fi+ff+e);
+    if (fi == "" ||ff == "" || e == "SELECCIONE") {
+        alert("Colocar alguna fecha para crear planilla");
+    }else{
+        if (e=='H'){
+            window.open(base_url + "reporte/horariof?fi=" + fi+ "&ff=" + ff);
+        }else{
+            window.open(base_url + "reporte/horarioef?fi=" + fi+ "&ff=" + ff);
+        }        
     }
 }
