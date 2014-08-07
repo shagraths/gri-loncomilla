@@ -38,6 +38,9 @@
     $("#reporte_general").button().click(function() {
         reporte_general();
     });    
+     $("#reporte_horario_f").button().click(function(){
+        reporte_horario_f();
+    });
     bloquear_id();
     grillas_admin();
     cb_reservas();
@@ -86,6 +89,7 @@
     $("#bt_filtrar_v").button().click(function(){
         bt_filtrar_v();
     });
+   
 </script>
 <div id="tabs">
     <ul>
@@ -273,7 +277,7 @@
     <div id="tabs-5">
         <table>
             <tr>
-                <td>Tipo</td>
+                <td>Tipo de informe</td>
                 <td>
                     <select id="tipo_reporte">
                         <option value="SELECCIONE">SELECCIONE</option>
@@ -282,12 +286,53 @@
                         <option value="tecnico">Tecnico</option>
                     </select>
                 </td>
-                <td><button id="reporte_general">Crear</button></td>
-            </tr>
+                <td>Estado:</td>
+                <td>
+                    <select id="e_reporte">
+                        <option value="SELECCIONE">SELECCIONE</option>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="INACTIVO">Inactivo</option>
+                        <option value="TODOS">Todos</option>                        
+                    </select>
+                </td>
+                <td><button id="reporte_general">Crear</button></td>   
+                </tr>
+        </table>
+        <br>
+        <table>
+            
+            
             <tr>
                 <td>Filtrar por Fecha</td>
                 <td><input id="fecha_horario" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
-                <td><button id="reporte_horario">Buscar</button></td>
+                <td>Tipo:</td>
+                <td>
+                    <select id="f_reporte">
+                        <option value="SELECCIONE">SELECCIONE</option>
+                        <option value="H">Horario de instalaciones</option>
+                        <option value="C">Cantidad de instalaciones</option>                                               
+                    </select>
+                </td>
+                <td><button id="reporte_horario">Crear</button></td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>Filtrar por Fechas:</td>
+            </tr>
+            <tr>                
+                <td>Desde: <input id="fi" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                <td>Hasta: <input id="ff" type="text" class="input input2 fecha" placeholder="yyyy/mm/dd" size="16" ></td>
+                
+                <td>Tipo:
+                    <select id="ff_reporte">
+                        <option value="SELECCIONE">SELECCIONE</option>
+                        <option value="H">Horario de instalaciones</option>
+                        <option value="C">Cantidad de instalaciones</option>                                               
+                    </select>
+                </td>
+                <td><button id="reporte_horario_f">Crear</button></td>
             </tr>
         </table>
     </div>

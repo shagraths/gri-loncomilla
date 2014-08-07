@@ -68,6 +68,20 @@ class modelo extends CI_Model {
         $this->db->join('tecnico', 'tecnico.id_t=instalacion.tecnico');
         return $this->db->get();
     }
+    function grilla_reservaf($fi,$ff) {
+        
+        $i = "07:00:00";
+        $f = "22:00:00";
+        $array = array('hora_inicio >=' => $i, 'hora_inicio <=' => $f,'fecha >=' => $fi, 'fecha <=' => $ff);
+        $this->db->select('*');        
+        $this->db->where('estado', "ACTIVO");
+        $this->db->where($array);
+        $this->db->group_by("hora_inicio");
+        $this->db->from('instalacion');
+        $this->db->join('servicio', 'servicio.id_s=instalacion.motivo');
+        $this->db->join('tecnico', 'tecnico.id_t=instalacion.tecnico');
+        return $this->db->get();
+    }
 
     function actualizar_reserva($id, $abonado, $orden, $nombre, $direccion, $fecha, $h_inicio, $h_fin, $obs, $material, $cb_s, $cb_tec, $estado_r) {
         $this->db->select('*');
@@ -152,6 +166,11 @@ class modelo extends CI_Model {
 
     function grilla_tec() {
         $this->db->select('*');
+        return $this->db->get("tecnico");
+    }
+    function grilla_tec_c($e) {
+        $this->db->select('*');
+        $this->db->where('estado_t', $e);
         return $this->db->get("tecnico");
     }
 
@@ -253,7 +272,11 @@ class modelo extends CI_Model {
         $this->db->select('*');
         return $this->db->get("servicio");
     }
-
+    function grilla_s_c($e) {
+        $this->db->select('*');
+        $this->db->where('estado_s', $e);
+        return $this->db->get("servicio");
+    }
     function grilla_s_a() {
         $this->db->select('*');
         $this->db->where('estado_s', "ACTIVO");
@@ -337,7 +360,12 @@ class modelo extends CI_Model {
         $this->db->select('*');
         return $this->db->get("usuario");
     }
-
+    function grilla_u_c($e) {
+        $this->db->select('*');
+        $this->db->where('estado_us', $e);
+        return $this->db->get("usuario");
+    }
+    
 }
 
 ?>

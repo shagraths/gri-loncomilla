@@ -15,7 +15,7 @@
         <th>Observación</th>
         <th>Material Seriado</th>
         <th>Tecnico</th>                
-        <th>Editar</th>
+        <th>Hacer encuesta</th>
     </thead>
     <tbody>
         <? $i = 0; ?>

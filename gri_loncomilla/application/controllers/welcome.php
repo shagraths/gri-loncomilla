@@ -230,7 +230,9 @@ class Welcome extends CI_Controller {
     function grilla_reserva_v() {
         date_default_timezone_set("America/Santiago");
         $fecha = date('Y-m-d');
-        $data = $this->modelo->grilla_reserva_e($fecha);
+        $nuevafecha = strtotime('+1 day', strtotime($fecha));
+        $nuevafecha = date('Y-m-d', $nuevafecha);
+        $data = $this->modelo->grilla_reserva_e($nuevafecha);
         $datos['cantidad'] = $data->num_rows();
         $datos['datos'] = $data->result();
         $this->load->view('VENDEDOR/GRILLAS/grilla_reservas', $datos);
